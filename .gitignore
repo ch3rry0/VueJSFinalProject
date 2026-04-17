@@ -1,2 +1,7 @@
 docs/course
 docs/Vue.js 3 _ TP.pdf
+
+node_modules/
+dist/
+*.log
+.DS_Store
