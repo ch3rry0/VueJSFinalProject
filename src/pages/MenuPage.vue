@@ -7,14 +7,12 @@
     </div>
     
     <div class="plats-grid">
-      <!-- Boucle sur la liste de plats -->
       <Gourmet 
         v-for="plat in plats" 
         :key="plat.id" 
         :plat="plat"
         @festoyons="onFestoyons"
       >
-        <!-- Utilisation du slot 'victuaille' pour les badges promotionnels  -->
         <template #victuaille>
           <span v-if="plat.promo" class="badge-promo">PROMO -{{ plat.promo }}%</span>
           <span v-else-if="plat.isNew" class="badge-new">NOUVEAUTE</span>
@@ -27,9 +25,10 @@
 <script setup>
 import { ref } from 'vue'
 import Gourmet from '../components/Gourmet.vue'
+import { useCart } from '../composables/useCart'
 
-// Données fictives pour la "Partie 2"
-// (en attendant une possible intégration d'API ou store)
+const { addToCart } = useCart()
+
 const plats = ref([
   {
     id: 1,
@@ -62,12 +61,10 @@ const plats = ref([
   }
 ])
 
-// Gestion de l'évenement 'festoyons' levé par le composant Gourmet
 const onFestoyons = (plat) => {
-  // Dans la partie 3, on ajoutera le plat au panier via un store/inject
+  addToCart(plat)
   console.log('Event "festoyons" déclenché pour le plat:', plat)
-  // Simulation d'une alerte en attendant la partie 4 (toast)
-  alert(`Plat "${plat.nom}" ajouté au panier (Event festoyons reçu).`)
+  alert(`Plat "${plat.nom}" ajouté au panier !`)
 }
 </script>
 
